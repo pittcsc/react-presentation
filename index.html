@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Introduction</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- React CDN -->
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <!-- Babel-standalone, allowing JSX compilation in-browser -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+     const realRootNode = document.getElementById('root');
+
+     class Counter extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {
+                clicks: props.clickCount
+            };
+        }
+
+        increment() {
+            this.setState({
+                clicks: ++this.state.clicks
+            })
+        }
+
+        render() {
+            const { clicks } = this.state;
+            return(
+                <div>
+                    <h1>Will it rain today in Pittsburgh?</h1>
+                    <h2>Yes!</h2>
+                    {   clicks > 1 ?
+                    <h3>I've already told you <span className="count">{ clicks }</span> times!</h3>
+                        : null
+                    }
+                    <button
+                        className="btn btn-primary"
+                        onClick={ this.increment.bind(this) }>
+                        Check again?
+                    </button>
+                </div>
+            )
+         }
+     }
+
+     ReactDOM.render(<Counter clickCount="1"/>, realRootNode);
+    </script>
+    <style>
+     body {
+         background-color: lightblue;
+         margin: 5%;
+     }
+     h2 {
+         color: green;
+         margin: 10%;
+     }
+     .count {
+         color: red;
+     }
+    </style>
+  </body>
+</html>
